@@ -112,7 +112,7 @@ struct BasketView: View {
                                     }.foregroundColor(.red).underline()
                                     
                                 }
-
+                                
                             }
                             Spacer()
                         }
@@ -240,48 +240,55 @@ struct BasketView: View {
     private func validateForm() {
         
         // customerName must contain just letters
-        let nameIsValid = isValid(name: customerName)
-        let emailIsValid = isValid(email: customerEmail)
         
-        guard nameIsValid && emailIsValid
-        else {
-            var invalidNameMessage = ""
-            if customerName.isEmpty || !isValid(name: customerName) {
-                invalidNameMessage = "Names can only contain letters and must have at least 3 characters\n\n"
-            }
-            
-            var invalidPhoneMessage = ""
-            if customerPhoneNumber.isEmpty {
-                invalidPhoneMessage = "The phone number cannot be blank.\n\n"
-            }
-            
-            var invalidEmailMessage = ""
-            if !customerEmail.isEmpty || !isValid(email: customerEmail) {
-                invalidEmailMessage = "The e-mail is invalid or blank.\n\n"
-            }
-            
-            //TODO: address check
-            
-            var invalidFrequencyMessage = ""
-            if Basket.weekDays.isEmpty {
-                invalidFrequencyMessage = "The Frequency of deliveries is blank.\n\n"
-            }
-            
-            
-            var invalidBasketMessage = ""
-            if Basket.basket.isEmpty {
-                invalidBasketMessage = "The basket cannot be empty.\n\n"
-            }
-            
-            
-            var invalidDeliveryTimeMessage = ""
-            if Basket.deliveryTime == 0 {
-                invalidDeliveryTimeMessage = "Choose Delivery time.\n\n"
-            }
-            
-            
-            self.errorMessage = "Found these errors in the form:\n\n \(invalidNameMessage)\(invalidPhoneMessage)\(invalidEmailMessage)\(invalidFrequencyMessage)\(invalidBasketMessage)\(invalidDeliveryTimeMessage)"
-            
+        var foundError = false
+        
+        var invalidNameMessage = ""
+        if customerName.isEmpty || !isValid(name: customerName) {
+            invalidNameMessage = "Names can only contain letters and must have at least 3 characters\n\n"
+            foundError = true
+        }
+        
+        var invalidPhoneMessage = ""
+        if customerPhoneNumber.isEmpty {
+            invalidPhoneMessage = "The phone number cannot be blank.\n\n"
+            foundError = true
+        }
+        
+        var invalidEmailMessage = ""
+        if customerEmail.isEmpty || !isValid(email: customerEmail) {
+            invalidEmailMessage = "The e-mail is invalid or blank.\n\n"
+            foundError = true
+        }
+        
+        var invalidAddressMessage = ""
+        if customerAddress.isEmpty {
+            invalidAddressMessage = "The address is blank.\n\n"
+            foundError = true
+        }
+        
+        var invalidFrequencyMessage = ""
+        if Basket.weekDays.isEmpty {
+            invalidFrequencyMessage = "The Frequency of deliveries is blank.\n\n"
+            foundError = true
+        }
+        
+        
+        var invalidBasketMessage = ""
+        if Basket.basket.isEmpty {
+            invalidBasketMessage = "The basket cannot be empty.\n\n"
+            foundError = true
+        }
+        
+        
+        var invalidDeliveryTimeMessage = ""
+        if Basket.deliveryTime == 0 {
+            invalidDeliveryTimeMessage = "Choose Delivery time.\n\n"
+            foundError = true
+        }
+        
+        if(foundError == true){
+            self.errorMessage = "Found these errors in the form:\n\n \(invalidNameMessage)\(invalidPhoneMessage)\(invalidEmailMessage)\(invalidAddressMessage)\(invalidFrequencyMessage)\(invalidBasketMessage)\(invalidDeliveryTimeMessage)"
             
             
             showFormInvalidMessage.toggle()
@@ -306,6 +313,8 @@ struct BasketView: View {
         // set the flag to defer changing to the model (see .onChange)
         self.mustChangeReservation.toggle()
         
+        makePostRequest(body: temporaryReservation)
+        
         // dismiss this view
         self.presentationMode.wrappedValue.dismiss()
     }
@@ -329,6 +338,36 @@ struct BasketView: View {
         return emailValidationPredicate.evaluate(with: email)
     }
     
+    func makeOrder() -> String {
+        var order = ""
+        for i in Basket.basket{
+            order += (i.name)! + "=" + String(i.quantity) + " ,"
+        }
+        return order
+    }
+    
+    func makePostRequest(body: Reservation) {
+        var request = URLRequest(url: URL(string: "https://ed3cfe02-20a0-4453-b157-1b31a27ab087.mock.pstmn.io")!)
+        request.httpMethod = "POST"
+        
+        let parameters = ["name": body.customerName, "phone": body.customerPhoneNumber, "address": body.customerAddress, "order": makeOrder()] as [String : Any]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            if let data = data {
+                let responseString = String(data: data, encoding: .utf8)!
+                print(responseString)
+            }
+        }
+        
+        task.resume()
+    }
     
 }
 

@@ -9,8 +9,7 @@ class ItemsModel: ObservableObject {
         
     
     func reload(_ coreDataContext:NSManagedObjectContext) async {
-        let url = URL(string: "https://mocki.io/v1/09d492bb-5061-43fa-9180-c70c9236676f")!
-        /*https://mocki.io/v1/c10c0a81-7b63-4b81-9113-d9da2568f6f6*/
+        let url = URL(string: "https://mocki.io/v1/aac1e012-06b9-46af-8ce9-7b6cc57e5919")!
         let urlSession = URLSession.shared
         
         do {

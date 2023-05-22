@@ -8,7 +8,7 @@
 import Foundation
 
 struct Basket {
-    static var basket = [Item]()//turn to set
+    static var basket = [Item]()
     static var weekDays: [String] = []
     static var deliveryTime: Int = 0
 }

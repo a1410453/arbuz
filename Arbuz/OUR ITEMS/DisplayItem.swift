@@ -22,7 +22,7 @@ struct DisplayItem: View {
                 
                 Spacer()
                 
-                Text(item.inStock ?? "")
+                Text(item.size ?? "")
                 
                 Spacer()
                 
@@ -32,24 +32,34 @@ struct DisplayItem: View {
             }
             
             HStack{
-                Stepper(value: $count, step: 1) {
-                    Text("Qty: \(count)")
+                if (Int(item.inStock!) ?? 0) < 1 {
+                    Text("SOLD OUT")
                         .monospaced()
                         .font(.callout)
-                        .foregroundColor(.red)
-                    
-                }.foregroundColor(.red)
-                Spacer()
-                //Button(item.?"Add to basket":"Out os stock")
-                Button("Add to basket") {
-                    item.quantity = Float(count)
-                    showAlert = addToBasket(item)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .foregroundColor(.green)
-                .alert("Order placed, thanks!",
-                    isPresented: $showAlert) {
-                    Button("OK", role: .cancel) { }
+                else{
+                    
+                    Stepper(value: $count, step: 1) {
+                        Text("Qty: \(count)")
+                            .monospaced()
+                            .font(.callout)
+                            .foregroundColor(.red)
+                        
+                    }.foregroundColor(.red)
+                    
+                    Spacer()
+                    
+                    Button("Add to basket") {
+                        item.quantity = Float(count)
+                        showAlert = addToBasket(item)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .foregroundColor(.green)
+                    .alert("Order placed, thanks!",
+                           isPresented: $showAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
                 }
 
             }
@@ -62,7 +72,6 @@ struct DisplayItem: View {
 
  
 private func addToBasket(_ item: Item)-> Bool{
-    // && item.inStock - item.quantity > 0 && Basket.basket.contains(item)
     if Int(item.inStock!)! - Int(item.quantity) >= 0{
         Basket.basket.append(item)
         return true
