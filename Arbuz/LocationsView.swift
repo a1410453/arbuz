@@ -17,9 +17,9 @@ struct LocationsView: View {
             
             NavigationView {
                 // EmptyView()
-                List(model.restaurants, id: \.self) { restaurant in
-                    NavigationLink(destination: BasketView(restaurant)) {
-                        MarketView(restaurant)
+                List(model.markets, id: \.self) { market in
+                    NavigationLink(destination: BasketView(market)) {
+                        MarketView(market)
                     }
                 }
                 .navigationBarTitle("")

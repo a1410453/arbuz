@@ -6,14 +6,14 @@ struct SubcriptionView: View {
     var body: some View {
         // you can create variables inside body
         // to help you reduce code repetition
-        let restaurant = model.reservation.restaurant
+        let market = model.reservation.market
         
         ScrollView {
             VStack {
                 ArbuzLogo()
                     .padding(.bottom, 20)
                 
-                if restaurant.city.isEmpty {
+                if market.city.isEmpty {
                     
                     VStack {
                         // if city is empty no reservation has been
@@ -39,7 +39,7 @@ struct SubcriptionView: View {
                             Text("CITY")
                                 .font(.subheadline)
                                 .padding(.bottom, 5)
-                            MarketView(restaurant)
+                            MarketView(market)
                         }
                         Spacer()
                     }

@@ -1,21 +1,20 @@
 import SwiftUI
 
 struct MarketView: View {
-  private var restaurant:MarketLocation
+  private var market:MarketLocation
   
-  init(_ restaurant:MarketLocation) {
-    self.restaurant = restaurant
+  init(_ market:MarketLocation) {
+    self.market = market
   }
   
   var body: some View {
     VStack (alignment: .leading, spacing:3){
-      Text(restaurant.city)
+      Text(market.city)
         .font(.title2)
       
       HStack {
-        Text(restaurant.neighborhood)
-        Text("–")
-        Text(restaurant.phoneNumber)
+        Text(market.neighborhood)
+        Text(market.phoneNumber)
       }
       .font(.caption)
       .foregroundColor(.gray)

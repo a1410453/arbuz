@@ -1,7 +1,7 @@
 import Foundation
 
 struct Reservation {
-    var restaurant:MarketLocation
+    var market:MarketLocation
     var customerName:String
     var customerEmail:String
     var customerPhoneNumber:String
@@ -12,7 +12,7 @@ struct Reservation {
 
     var id = UUID()
     
-    init(restaurant:MarketLocation = MarketLocation(),
+    init(market:MarketLocation = MarketLocation(),
          customerName: String = "",
          customerEmail: String = "",
          customerPhoneNumber: String = "",
@@ -21,7 +21,7 @@ struct Reservation {
          customerAddress: String = "",
          specialRequests: String = ""
     ) {
-        self.restaurant = restaurant
+        self.market = market
         self.customerName = customerName
         self.customerEmail = customerEmail
         self.customerPhoneNumber = customerPhoneNumber

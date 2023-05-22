@@ -2,7 +2,7 @@ import Foundation
 import UserNotifications
 
 class Model:ObservableObject {
-    let restaurants = [
+    let markets = [
         MarketLocation(city: "Astana",
                        neighborhood: "",
                        phoneNumber: "+7 (705) 926 00 01"),

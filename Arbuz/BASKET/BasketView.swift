@@ -7,7 +7,7 @@ struct BasketView: View {
     @State var errorMessage = ""
     
     
-    private var restaurant:MarketLocation
+    private var market:MarketLocation
     @State var reservationDate = Date()
     @State var untilDate = Date()
     @State var customerAddress = ""
@@ -23,8 +23,8 @@ struct BasketView: View {
     @State var mustChangeReservation = false
     @State var refreshFlag = ""
     
-    init(_ restaurant:MarketLocation) {
-        self.restaurant = restaurant
+    init(_ market:MarketLocation) {
+        self.market = market
     }
     
     func countTotal() -> String {
@@ -39,8 +39,8 @@ struct BasketView: View {
     var body: some View {
         VStack {
             Form {
-                // Restaurant information
-                MarketView(restaurant)
+                // market information
+                MarketView(market)
                 
                 // shows the party information
                 HStack {
@@ -291,7 +291,7 @@ struct BasketView: View {
         // form is valid, proceed
         
         // create new temporary reservation
-        let temporaryReservation = Reservation(restaurant:restaurant,
+        let temporaryReservation = Reservation(market:market,
                                                customerName: customerName,
                                                customerEmail: customerEmail,
                                                customerPhoneNumber: customerPhoneNumber,
