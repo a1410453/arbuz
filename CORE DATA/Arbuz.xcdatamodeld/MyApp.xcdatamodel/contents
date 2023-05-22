@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Customer" representedClassName="Customer" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="fistName" optional="YES" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="String"/>
+        <relationship name="fromLocation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Location" inverseName="toCustomer" inverseEntity="Location"/>
+        <relationship name="toDessert" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Desser"/>
+        <relationship name="toItem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="fromCustomer" inverseEntity="Item"/>
+    </entity>
+    <entity name="Desser" representedClassName="Desser" syncable="YES">
+        <attribute name="inStock" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="size" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES">
+        <attribute name="inStock" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="size" optional="YES" attributeType="String"/>
+        <relationship name="fromCustomer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="toItem" inverseEntity="Customer"/>
+        <relationship name="fromLocation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Location" inverseName="toItem" inverseEntity="Location"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="neighborhood" optional="YES" attributeType="String"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="String"/>
+        <relationship name="toCustomer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="fromLocation" inverseEntity="Customer"/>
+        <relationship name="toDessert" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Desser"/>
+        <relationship name="toItem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="fromLocation" inverseEntity="Item"/>
+    </entity>
+</model>
