@@ -36,6 +36,7 @@ struct DisplayItem: View {
                     Text("SOLD OUT")
                         .monospaced()
                         .font(.callout)
+                        .foregroundColor(.red)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 else{

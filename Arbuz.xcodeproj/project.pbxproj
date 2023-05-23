@@ -89,13 +89,13 @@
 			path = BASKET;
 			sourceTree = "<group>";
 		};
-		41265845290A8335001023C9 /* RESTAURANT */ = {
+		41265845290A8335001023C9 /* MARKET */ = {
 			isa = PBXGroup;
 			children = (
 				41AECB742906D68B007983FF /* MarketLocation.swift */,
 				41B542722907D2360092B0E7 /* MarketView.swift */,
 			);
-			path = RESTAURANT;
+			path = MARKET;
 			sourceTree = "<group>";
 		};
 		414B3E96293A5259008DCB9D /* OUR ITEMS */ = {
@@ -149,7 +149,7 @@
 				414B3E97293A5284008DCB9D /* CORE DATA */,
 				414B3E96293A5259008DCB9D /* OUR ITEMS */,
 				41265844290A8311001023C9 /* BASKET */,
-				41265845290A8335001023C9 /* RESTAURANT */,
+				41265845290A8335001023C9 /* MARKET */,
 				41AECB662906D62E007983FF /* ArbuzApp.swift */,
 				548523A72A18974800EED414 /* ArbuzLogo.swift */,
 				41AECB682906D62E007983FF /* LocationsView.swift */,
