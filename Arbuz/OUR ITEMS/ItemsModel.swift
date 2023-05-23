@@ -6,22 +6,24 @@ import CoreData
 class ItemsModel: ObservableObject {
     
     @Published var menuItems = [CatalogItem]()
-        
+    
     
     func reload(_ coreDataContext:NSManagedObjectContext) async {
-        let url = URL(string: "https://mocki.io/v1/aac1e012-06b9-46af-8ce9-7b6cc57e5919")!
-        let urlSession = URLSession.shared
         
-        do {
-            let (data, _) = try await urlSession.data(from: url)
-            let fullMenu = try JSONDecoder().decode(JSONCatalog.self, from: data)
-            menuItems = fullMenu.menu
+            let url = URL(string: "https://mocki.io/v1/0044a4a9-61ac-470d-9a88-50f23a4375fc")!
+            let urlSession = URLSession.shared
             
-            // populate Core Data
-            Item.deleteAll(coreDataContext)
-            Item.createItemsFrom(menuItems:menuItems, coreDataContext)
-        }
-        catch { }
+            do {
+                let (data, _) = try await urlSession.data(from: url)
+                let fullMenu = try JSONDecoder().decode(JSONCatalog.self, from: data)
+                menuItems = fullMenu.menu
+                
+                // populate Core Data
+                Item.deleteAll(coreDataContext)
+                Item.createItemsFrom(menuItems:menuItems, coreDataContext)
+            }
+            catch { }
+        
     }
 }
 
