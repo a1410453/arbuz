@@ -10,6 +10,10 @@
   <img src="https://img.youtube.com/vi/Iz74zgFBPp0/maxresdefault.jpg" alt="Video Thumbnail" width="480" height="270">
 </a>
 
+
+https://youtu.be/Iz74zgFBPp0
+
+
 ## Функциональности проекта
 Продукт обладает следующими возможностями:
 
